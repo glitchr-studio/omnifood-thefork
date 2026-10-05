@@ -8,6 +8,23 @@ composer require glitchr/omnifood omnifood/thefork
 
 ## Configuration
 
+```php
+use Omnifood\TheFork\TheForkPlatformFactory;
+use Symfony\Component\HttpClient\HttpClient;
+
+$thefork = (new TheForkPlatformFactory(HttpClient::create()))->create([
+    'client_id' => getenv('THEFORK_CLIENT_ID') ?: null,
+    'client_secret' => getenv('THEFORK_CLIENT_SECRET') ?: null,
+    'restaurant_id' => getenv('THEFORK_RESTAURANT_ID') ?: null,   // the restaurant's UUID
+    'webhook_token' => getenv('THEFORK_WEBHOOK_TOKEN') ?: null,   // the token in the webhook URL given to TheFork
+]);
+```
+
+The factory takes any `HttpClientInterface` (the application's, a `MockHttpClient` in a test) and
+makes its own when given none; several platforms go in a `Registry`
+([the core's installation](https://github.com/glitchr-studio/omnifood/blob/1.x/docs/installation.md)).
+In a Symfony application, the same options in `config/packages/omnifood.yaml`:
+
 ```yaml
 omnifood:
     platforms:

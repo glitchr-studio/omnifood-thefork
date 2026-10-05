@@ -9,6 +9,22 @@ opened or closed online, the webhooks read - through TheFork's B2B API (TheFork 
 > (https://docs.thefork.io/B2B-API/introduction and https://api.thefork.io/manager/openapi.json, read
 > on 2026-10-04) and tested against recorded answers.
 
+```php
+use Omnifood\TheFork\TheForkPlatformFactory;
+use Symfony\Component\HttpClient\HttpClient;
+
+$thefork = (new TheForkPlatformFactory(HttpClient::create()))->create([
+    'client_id' => getenv('THEFORK_CLIENT_ID') ?: null,
+    'client_secret' => getenv('THEFORK_CLIENT_SECRET') ?: null,
+    'restaurant_id' => getenv('THEFORK_RESTAURANT_ID') ?: null,   // the restaurant's UUID
+    'webhook_token' => getenv('THEFORK_WEBHOOK_TOKEN') ?: null,   // the token in the webhook URL given to TheFork
+]);
+```
+
+Plain PHP, no framework needed: the factory takes any `HttpClientInterface` - the application's, a
+`MockHttpClient` in a test - and makes its own when given none. In a Symfony application, the same
+options under `omnifood.platforms` ([the bundle](https://github.com/glitchr-studio/omnifood/blob/1.x/docs/symfony.md)):
+
 ```yaml
 omnifood:
     platforms:
