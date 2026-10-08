@@ -3,7 +3,7 @@
     "type": "library",
     "description": "Omnifood TheFork: the restaurant's reservations read, created, updated and cancelled, its tables closed or opened online, the webhooks read - through TheFork's B2B API (TheFork Manager).",
     "keywords": ["restaurant", "reservations", "booking", "thefork", "lafourchette", "omnifood"],
-    "license": "LGPL-3.0-or-later",
+    "license": "MIT",
     "authors": [{"name": "Marco Meyer", "email": "marco.meyer@glitchr.io"}],
     "require": {
         "php": ">=8.2",
